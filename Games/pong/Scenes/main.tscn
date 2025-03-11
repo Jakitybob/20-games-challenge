@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c10lig3wys3k6"]
+
+[ext_resource type="PackedScene" uid="uid://c6wphkpyur6ge" path="res://Objects/paddle.tscn" id="1_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://dbb5axycib0uk" path="res://Objects/ball.tscn" id="1_jjgbg"]
+
+[node name="Main" type="Node"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Paddle" parent="CanvasLayer" instance=ExtResource("1_bo1nx")]
+position = Vector2(9, 54)
+
+[node name="Ball" parent="CanvasLayer" instance=ExtResource("1_jjgbg")]
+position = Vector2(960, 540)
