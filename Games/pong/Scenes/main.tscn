@@ -1,18 +1,50 @@
-[gd_scene load_steps=4 format=3 uid="uid://c10lig3wys3k6"]
+[gd_scene load_steps=5 format=3 uid="uid://c10lig3wys3k6"]
 
 [ext_resource type="PackedScene" uid="uid://duif7asospeuf" path="res://Objects/wall.tscn" id="1_8gbba"]
 [ext_resource type="PackedScene" uid="uid://c6wphkpyur6ge" path="res://Objects/paddle.tscn" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://dbb5axycib0uk" path="res://Objects/ball.tscn" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://dvefiqx06wg06" path="res://Scenes/GameController.cs" id="1_jjvhh"]
 
 [node name="Main" type="Node"]
+script = ExtResource("1_jjvhh")
 
 [node name="Wall" parent="." instance=ExtResource("1_8gbba")]
 
 [node name="Wall2" parent="." instance=ExtResource("1_8gbba")]
 position = Vector2(0, 1067)
 
-[node name="Paddle" parent="." instance=ExtResource("1_bo1nx")]
-position = Vector2(9, 93.445)
+[node name="PaddleOne" parent="." instance=ExtResource("1_bo1nx")]
+position = Vector2(10, 540)
+
+[node name="PaddleTwo" parent="." instance=ExtResource("1_bo1nx")]
+position = Vector2(1910, 540)
+playerPosition = 1
 
 [node name="Ball" parent="." instance=ExtResource("1_jjgbg")]
 position = Vector2(960, 540)
+speed = 350.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PlayerOneScore" type="Label" parent="CanvasLayer"]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 500.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 150
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerTwoScore" type="Label" parent="CanvasLayer"]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -500.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 150
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1

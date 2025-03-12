@@ -1,7 +1,9 @@
 using Godot;
 using System;
+using System.Formats.Asn1;
 using System.Linq.Expressions;
 using System.Threading;
+using System.Threading.Tasks;
 
 public partial class Ball : RigidBody2D
 {
@@ -19,6 +21,21 @@ public partial class Ball : RigidBody2D
 
         // Set ball off with base direction
         direction = GenerateRandomDirection();
+    }
+
+    public override void _Process(double delta)
+    {
+        // Check if the ball is out of range on either side and update the score accordingly
+        if (Position.X < -5)
+        {
+            GameController.instance.UpdatePlayerTwoScore(1);
+            ResetBall();
+        }
+        else if (Position.X > 1925)
+        {
+            GameController.instance.UpdatePlayerOneScore(1);
+            ResetBall();
+        }
     }
 
     public override void _PhysicsProcess(double delta)
@@ -56,5 +73,16 @@ public partial class Ball : RigidBody2D
 
         newDirection.Y = angle;
         return newDirection.Normalized();
+    }
+
+    private async Task ResetBall()
+    {
+        // Recenter the ball
+        Position = new Vector2(GetViewportRect().Size.X/2, GetViewportRect().Size.Y/2);
+        direction = Vector2.Zero; // Zero out the direction
+
+        // Generate a new random velocity after a time and send the ball off
+        await ToSignal(GetTree().CreateTimer(2), SceneTreeTimer.SignalName.Timeout);
+        direction = GenerateRandomDirection();
     }
 }
