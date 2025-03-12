@@ -9,6 +9,8 @@ public partial class GameController : Node
     private Label playerOneScoreLabel, playerTwoScoreLabel;
     private int playerOneScore = 0, playerTwoScore = 0;
 
+    public AudioController audioController { get; private set; }
+
     public override void _Ready()
     {
         // Make sure there is only one instance of the game controller
@@ -23,6 +25,9 @@ public partial class GameController : Node
         // Get the score labels for each side
         playerOneScoreLabel = GetNode<CanvasLayer>("CanvasLayer").GetNode<Label>("PlayerOneScore");
         playerTwoScoreLabel = GetNode<CanvasLayer>("CanvasLayer").GetNode<Label>("PlayerTwoScore");
+
+        // Get the AudioStreamPlayer
+        audioController = GetNode<AudioController>("AudioStreamPlayer");
     }
 
     public void UpdatePlayerOneScore(int points)

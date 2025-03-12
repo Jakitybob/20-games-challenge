@@ -46,6 +46,10 @@ public partial class Ball : RigidBody2D
         // If a collision occurred
         if (collision != null)
         {
+            // Play bounce SFX
+            GameController.instance.audioController.PlayBallHitSound();
+
+            // Bounce the ball
             Vector2 reflect = collision.GetRemainder().Reflect(collision.GetNormal()); // Get the immediate reflection of the ball from the surface
             direction = direction.Bounce(collision.GetNormal()) * (float)delta; // Get the new direction based on the bounce
             MoveAndCollide(reflect); // Move the ball once in the direction of the reflection
@@ -77,6 +81,9 @@ public partial class Ball : RigidBody2D
 
     private async Task ResetBall()
     {
+        // Play point SFX
+        GameController.instance.audioController.PlayPointGainSound();
+
         // Recenter the ball
         Position = new Vector2(GetViewportRect().Size.X/2, GetViewportRect().Size.Y/2);
         direction = Vector2.Zero; // Zero out the direction
