@@ -6,5 +6,5 @@ Here I will maintain all of my work, partially just so I can get it from my lapt
 For my attempt at the challenge I'll be using Godot and C#, though who knows maybe I'll pivot later on. Probably not though.
 
 ## List of Games
-* Pong (BASE COMPLETE, STRETCH GOALS WIP)
-* Breakout (NOT STARTED)
+* Pong
+* Breakout (WIP)
