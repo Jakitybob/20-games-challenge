@@ -92,4 +92,10 @@ public partial class Ball : RigidBody2D
         await ToSignal(GetTree().CreateTimer(2), SceneTreeTimer.SignalName.Timeout);
         direction = GenerateRandomDirection();
     }
+
+    public void PauseBall()
+    {
+        direction = Vector2.Zero;
+        Visible = false;
+    }
 }

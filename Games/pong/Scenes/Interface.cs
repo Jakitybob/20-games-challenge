@@ -3,7 +3,7 @@ using System;
 
 public partial class Interface : CanvasLayer
 {
-    private Label playerOneScoreLabel, playerTwoScoreLabel, messageLabel;
+    private Label playerOneScoreLabel, playerTwoScoreLabel, messageLabel, controlLabelOne, controlLabelTwo;
     private TextureRect divider;
     private VBoxContainer buttonBox;
 
@@ -12,6 +12,8 @@ public partial class Interface : CanvasLayer
         // Get the game interface, score labels, and hide them all
         playerOneScoreLabel = GetNode<Label>("PlayerOneScore");
         playerTwoScoreLabel = GetNode<Label>("PlayerTwoScore");
+        controlLabelOne = GetNode<Label>("ControlLabelOne");
+        controlLabelTwo = GetNode<Label>("ControlLabelTwo");
         divider = GetNode<TextureRect>("TextureRect");
         messageLabel = GetNode<Label>("MessageLabel");
         buttonBox = GetNode<VBoxContainer>("ButtonBox");
@@ -26,6 +28,8 @@ public partial class Interface : CanvasLayer
         divider.Visible = true;
 
         messageLabel.Visible = false;
+        controlLabelOne.Visible = false;
+        controlLabelTwo.Visible = false;
         buttonBox.Visible = false;
     }
 
@@ -36,6 +40,8 @@ public partial class Interface : CanvasLayer
         divider.Visible = false;
 
         messageLabel.Visible = true;
+        controlLabelOne.Visible = true;
+        controlLabelTwo.Visible = true;
         buttonBox.Visible = true;
     }
 
@@ -58,7 +64,8 @@ public partial class Interface : CanvasLayer
 
     private void OnOnePlayerButtonPressed()
     {
-        // TODO: IMPLEMENT
+        StartGameInterface();
+        GameController.instance.StartGame(true);
     }
 
     private void OnExitGameButtonPressed()

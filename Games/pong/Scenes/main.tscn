@@ -59,28 +59,32 @@ expand_mode = 4
 stretch_mode = 1
 
 [node name="PlayerOneScore" type="Label" parent="Interface"]
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 500.0
-grow_vertical = 2
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -530.0
+offset_top = 26.0
+offset_right = -30.0
+offset_bottom = 219.0
+grow_horizontal = 2
 theme_override_fonts/font = ExtResource("5_344ge")
 theme_override_font_sizes/font_size = 150
 text = "0"
-horizontal_alignment = 1
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="PlayerTwoScore" type="Label" parent="Interface"]
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -500.0
-grow_horizontal = 0
-grow_vertical = 2
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 25.0
+offset_top = 28.0
+offset_right = 525.0
+offset_bottom = 221.0
+grow_horizontal = 2
 theme_override_fonts/font = ExtResource("5_344ge")
 theme_override_font_sizes/font_size = 150
 text = "0"
-horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MessageLabel" type="Label" parent="Interface"]
@@ -95,6 +99,38 @@ grow_horizontal = 2
 theme_override_fonts/font = ExtResource("5_344ge")
 theme_override_font_sizes/font_size = 150
 text = "Pong"
+
+[node name="ControlLabelOne" type="Label" parent="Interface"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 30.0
+offset_top = -96.5
+offset_right = 499.0
+offset_bottom = 96.5
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_344ge")
+theme_override_font_sizes/font_size = 70
+text = "W KEY
+S KEY"
+
+[node name="ControlLabelTwo" type="Label" parent="Interface"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -499.0
+offset_top = -96.5
+offset_right = -30.0
+offset_bottom = 96.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_344ge")
+theme_override_font_sizes/font_size = 70
+text = "UP
+DOWN"
+horizontal_alignment = 2
 
 [node name="ButtonBox" type="VBoxContainer" parent="Interface"]
 anchors_preset = 8
