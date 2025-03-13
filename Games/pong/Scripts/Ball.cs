@@ -19,22 +19,22 @@ public partial class Ball : RigidBody2D
         // Activate monitoring
         ContactMonitor = true;
 
-        // Set ball off with base direction
-        direction = GenerateRandomDirection();
+        // Turn off the ball
+        Visible = false;
     }
 
     public override void _Process(double delta)
     {
         // Check if the ball is out of range on either side and update the score accordingly
-        if (Position.X < -5)
+        if (Position.X < -5) // Player two scored
         {
             GameController.instance.UpdatePlayerTwoScore(1);
-            ResetBall();
+            _ = ResetBall();
         }
-        else if (Position.X > 1925)
+        else if (Position.X > 1925) // Player one scored
         {
             GameController.instance.UpdatePlayerOneScore(1);
-            ResetBall();
+            _ = ResetBall();
         }
     }
 
@@ -79,7 +79,7 @@ public partial class Ball : RigidBody2D
         return newDirection.Normalized();
     }
 
-    private async Task ResetBall()
+    public async Task ResetBall()
     {
         // Play point SFX
         GameController.instance.audioController.PlayPointGainSound();

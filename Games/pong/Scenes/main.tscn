@@ -1,15 +1,160 @@
-[gd_scene load_steps=8 format=3 uid="uid://c10lig3wys3k6"]
+[gd_scene load_steps=16 format=3 uid="uid://c10lig3wys3k6"]
 
 [ext_resource type="PackedScene" uid="uid://duif7asospeuf" path="res://Objects/wall.tscn" id="1_8gbba"]
 [ext_resource type="PackedScene" uid="uid://c6wphkpyur6ge" path="res://Objects/paddle.tscn" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://dbb5axycib0uk" path="res://Objects/ball.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://dvefiqx06wg06" path="res://Scenes/GameController.cs" id="1_jjvhh"]
+[ext_resource type="Script" uid="uid://bb63o3vxw1quw" path="res://Scenes/Interface.cs" id="2_hptm8"]
+[ext_resource type="Texture2D" uid="uid://bedu4hpx3blif" path="res://Textures/ball.jpg" id="3_ynf5e"]
 [ext_resource type="AudioStream" uid="uid://b6tvw3kcdd6o2" path="res://Sounds/8-bit-explosion-95847.mp3" id="5_21xkr"]
+[ext_resource type="FontFile" uid="uid://ds57eibne2luq" path="res://Fonts/Silkscreen-Regular.ttf" id="5_344ge"]
 [ext_resource type="Script" uid="uid://ba1osthqdxqop" path="res://Scenes/AudioController.cs" id="6_6bp64"]
 [ext_resource type="AudioStream" uid="uid://d0dteea1fi6e" path="res://Sounds/gameboy-pluck-41265.mp3" id="7_6bp64"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d1ilt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wsu2k"]
+bg_color = Color(1, 1, 1, 1)
+draw_center = false
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+shadow_color = Color(0, 0, 0, 0)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jkdf5"]
+bg_color = Color(0.419608, 0.419608, 0.419608, 1)
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.419608, 0.419608, 0.419608, 1)
+shadow_color = Color(0, 0, 0, 0)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6iyac"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hptm8"]
+
 [node name="Main" type="Node"]
 script = ExtResource("1_jjvhh")
+
+[node name="Interface" type="CanvasLayer" parent="."]
+script = ExtResource("2_hptm8")
+
+[node name="TextureRect" type="TextureRect" parent="Interface"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -6.5
+offset_right = 8.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_ynf5e")
+expand_mode = 4
+stretch_mode = 1
+
+[node name="PlayerOneScore" type="Label" parent="Interface"]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 500.0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_344ge")
+theme_override_font_sizes/font_size = 150
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerTwoScore" type="Label" parent="Interface"]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -500.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_344ge")
+theme_override_font_sizes/font_size = 150
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MessageLabel" type="Label" parent="Interface"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -234.5
+offset_top = 200.0
+offset_right = 234.5
+offset_bottom = 393.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("5_344ge")
+theme_override_font_sizes/font_size = 150
+text = "Pong"
+
+[node name="ButtonBox" type="VBoxContainer" parent="Interface"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 25
+
+[node name="TwoPlayerButton" type="Button" parent="Interface/ButtonBox"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.419813, 0.419813, 0.419813, 1)
+theme_override_fonts/font = ExtResource("5_344ge")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/focus = SubResource("StyleBoxEmpty_d1ilt")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_wsu2k")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_wsu2k")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_wsu2k")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_wsu2k")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wsu2k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jkdf5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_wsu2k")
+text = "Player vs. Player"
+
+[node name="OnePlayerButton" type="Button" parent="Interface/ButtonBox"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.419813, 0.419813, 0.419813, 1)
+theme_override_fonts/font = ExtResource("5_344ge")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6iyac")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_wsu2k")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_wsu2k")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_wsu2k")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_wsu2k")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wsu2k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jkdf5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_wsu2k")
+text = "Player vs. AI
+"
+
+[node name="ExitGameButton" type="Button" parent="Interface/ButtonBox"]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.419813, 0.419813, 0.419813, 1)
+theme_override_fonts/font = ExtResource("5_344ge")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/focus = SubResource("StyleBoxEmpty_hptm8")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_wsu2k")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_jkdf5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_jkdf5")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxFlat_wsu2k")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wsu2k")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jkdf5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_wsu2k")
+text = "EXIT GAME"
 
 [node name="Wall" parent="." instance=ExtResource("1_8gbba")]
 
@@ -27,34 +172,13 @@ playerPosition = 1
 position = Vector2(960, 540)
 speed = 350.0
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="PlayerOneScore" type="Label" parent="CanvasLayer"]
-anchors_preset = 9
-anchor_bottom = 1.0
-offset_right = 500.0
-grow_vertical = 2
-theme_override_font_sizes/font_size = 150
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="PlayerTwoScore" type="Label" parent="CanvasLayer"]
-anchors_preset = 11
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -500.0
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_font_sizes/font_size = 150
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_21xkr")
 volume_db = -10.0
 script = ExtResource("6_6bp64")
 ballHitSound = ExtResource("5_21xkr")
 pointGainSound = ExtResource("7_6bp64")
+
+[connection signal="pressed" from="Interface/ButtonBox/TwoPlayerButton" to="Interface" method="OnTwoPlayerButtonPressed"]
+[connection signal="pressed" from="Interface/ButtonBox/OnePlayerButton" to="Interface" method="OnOnePlayerButtonPressed"]
+[connection signal="pressed" from="Interface/ButtonBox/ExitGameButton" to="Interface" method="OnExitGameButtonPressed"]

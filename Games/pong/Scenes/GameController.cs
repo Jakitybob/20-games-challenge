@@ -6,7 +6,7 @@ public partial class GameController : Node
 {
     public static GameController instance { get; private set; } // Singleton instance
 
-    private Label playerOneScoreLabel, playerTwoScoreLabel;
+    private Interface gameInterface;
     private int playerOneScore = 0, playerTwoScore = 0;
 
     public AudioController audioController { get; private set; }
@@ -22,23 +22,29 @@ public partial class GameController : Node
 
         instance = this;
 
-        // Get the score labels for each side
-        playerOneScoreLabel = GetNode<CanvasLayer>("CanvasLayer").GetNode<Label>("PlayerOneScore");
-        playerTwoScoreLabel = GetNode<CanvasLayer>("CanvasLayer").GetNode<Label>("PlayerTwoScore");
+        // Get the menu interface
+        gameInterface = GetNode<Interface>("Interface");
 
         // Get the AudioStreamPlayer
         audioController = GetNode<AudioController>("AudioStreamPlayer");
     }
 
+    public void StartGame(bool isAgainstAI) 
+    {
+        Ball ball = GetNode<Ball>("Ball");
+        ball.Visible = true;
+        _ = ball.ResetBall();
+    }
+
     public void UpdatePlayerOneScore(int points)
     {
         playerOneScore += points;
-        playerOneScoreLabel.Text = playerOneScore.ToString();
+        gameInterface.UpdatePlayerOneScore(points);
     }
 
     public void UpdatePlayerTwoScore(int points)
     {
         playerTwoScore += points;
-        playerTwoScoreLabel.Text = playerTwoScore.ToString();
+        gameInterface.UpdatePlayerTwoScore(points);
     }
 }
