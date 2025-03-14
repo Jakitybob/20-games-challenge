@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://crvefv12gq3lt"]
+[gd_scene load_steps=8 format=3 uid="uid://crvefv12gq3lt"]
 
 [ext_resource type="PackedScene" uid="uid://b7uwd54flp8iq" path="res://Objects/paddle.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://cugc7ovjgik2j" path="res://Scripts/GameController.cs" id="1_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://cg2m136to11rt" path="res://Objects/ball.tscn" id="2_bo1nx"]
+[ext_resource type="Script" uid="uid://dw0duugntq3yi" path="res://Scenes/Interface.cs" id="5_21xkr"]
 [ext_resource type="PackedScene" uid="uid://ccyyc52vw26o" path="res://Objects/brick.tscn" id="5_kry3j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8gbba"]
@@ -53,3 +54,14 @@ offset_bottom = 1010.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
 position = Vector2(15, 535)
 shape = SubResource("RectangleShape2D_jjvhh")
+
+[node name="Interface" type="CanvasLayer" parent="."]
+script = ExtResource("5_21xkr")
+
+[node name="ScoreLabel" type="Label" parent="Interface"]
+offset_left = 100.0
+offset_right = 258.0
+offset_bottom = 58.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = "Score: 0"

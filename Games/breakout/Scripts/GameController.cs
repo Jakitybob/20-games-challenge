@@ -14,9 +14,13 @@ public enum BrickColors
 public partial class GameController : Node
 {
     public static GameController instance;
+
+    private Interface userInterface;
+
     [Export] PackedScene brickObject;
     [Export] int brickSeparation = 25;
     private int bricksRemaining = 0;
+    private int score = 0;
 
     public override void _EnterTree() // So that it registers prior to other objects existing
     {
@@ -38,12 +42,17 @@ public partial class GameController : Node
 
     public override void _Ready()
     {
+        // Get the UI canvas layer
+        userInterface = GetNode<Interface>("Interface");
+
         GenerateBricks(new Vector2(960, 150), 5, 23);
     }
 
     public void RemoveBrick()
     {
         bricksRemaining--;
+        score++;
+        userInterface.UpdateScore(score);
     }
 
     private void GenerateBricks(Vector2 rowCenterPos, int rows, int cols)
