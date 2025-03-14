@@ -3,11 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://b7uwd54flp8iq" path="res://Objects/paddle.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://cugc7ovjgik2j" path="res://Scripts/GameController.cs" id="1_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://cg2m136to11rt" path="res://Objects/ball.tscn" id="2_bo1nx"]
-[ext_resource type="Texture2D" uid="uid://bqqel8fr3gees" path="res://Textures/48960977-820f6980-efb4-11e8-841b-8f50f9034b0e.jpg" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://ccyyc52vw26o" path="res://Objects/brick.tscn" id="5_kry3j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8gbba"]
-size = Vector2(26, 998)
+size = Vector2(1920, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jjvhh"]
+size = Vector2(30, 950)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_jjvhh")
@@ -19,39 +21,35 @@ position = Vector2(960, 1050)
 [node name="Ball" parent="." instance=ExtResource("2_bo1nx")]
 position = Vector2(960, 880)
 
-[node name="Wall" type="StaticBody2D" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="Wall"]
-position = Vector2(13, 499)
-scale = Vector2(0.1, 3.9)
-texture = ExtResource("3_8gbba")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
-position = Vector2(13, 499)
-shape = SubResource("RectangleShape2D_8gbba")
-
-[node name="Wall2" type="StaticBody2D" parent="."]
-position = Vector2(1894, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="Wall2"]
-position = Vector2(13, 499)
-scale = Vector2(0.1, 3.9)
-texture = ExtResource("3_8gbba")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
-position = Vector2(13, 499)
-shape = SubResource("RectangleShape2D_8gbba")
-
 [node name="Ceiling" type="StaticBody2D" parent="."]
-position = Vector2(1894, -7.27596e-12)
-rotation = 1.5708
-scale = Vector2(1.001, 1.872)
 
-[node name="Sprite2D" type="Sprite2D" parent="Ceiling"]
-position = Vector2(13, 499)
-scale = Vector2(0.1, 3.9)
-texture = ExtResource("3_8gbba")
+[node name="ColorRect" type="ColorRect" parent="Ceiling"]
+offset_right = 1920.0
+offset_bottom = 60.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ceiling"]
-position = Vector2(13, 499)
+position = Vector2(960, 30)
 shape = SubResource("RectangleShape2D_8gbba")
+
+[node name="Wall" type="StaticBody2D" parent="."]
+position = Vector2(1890, 0)
+
+[node name="ColorRect" type="ColorRect" parent="Wall"]
+offset_top = 60.0
+offset_right = 30.0
+offset_bottom = 1010.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+position = Vector2(15, 535)
+shape = SubResource("RectangleShape2D_jjvhh")
+
+[node name="Wall2" type="StaticBody2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Wall2"]
+offset_top = 60.0
+offset_right = 30.0
+offset_bottom = 1010.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
+position = Vector2(15, 535)
+shape = SubResource("RectangleShape2D_jjvhh")

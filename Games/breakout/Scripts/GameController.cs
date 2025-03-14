@@ -1,6 +1,16 @@
 using Godot;
 using System;
 
+public enum BrickColors
+{
+    Red,
+    Orange,
+    Yellow,
+    Green,
+    Blue,
+    Purple
+}
+
 public partial class GameController : Node
 {
     public static GameController instance;
@@ -28,7 +38,7 @@ public partial class GameController : Node
 
     public override void _Ready()
     {
-        GenerateBricks(new Vector2(960, 100), 5, 23);
+        GenerateBricks(new Vector2(960, 150), 5, 23);
     }
 
     public void RemoveBrick()
@@ -48,6 +58,7 @@ public partial class GameController : Node
             for (int col = 0; col < cols; col++)
             {
                 Brick brick = (Brick)brickObject.Instantiate();
+                brick.SetColor((BrickColors)row);
                 float x = startingPos.X + brickSeparation * col + (col * brick.GetNode<ColorRect>("ColorRect").Size.X);
                 float y = startingPos.Y + brickSeparation * row + (row * brick.GetNode<ColorRect>("ColorRect").Size.Y);
                 brick.Position = new Vector2(x, y);
