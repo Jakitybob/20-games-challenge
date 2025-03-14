@@ -1,12 +1,57 @@
-[gd_scene load_steps=3 format=3 uid="uid://crvefv12gq3lt"]
+[gd_scene load_steps=7 format=3 uid="uid://crvefv12gq3lt"]
 
-[ext_resource type="PackedScene" uid="uid://b7uwd54flp8iq" path="res://Scenes/paddle.tscn" id="1_jjgbg"]
-[ext_resource type="PackedScene" uid="uid://cg2m136to11rt" path="res://Scenes/ball.tscn" id="2_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://b7uwd54flp8iq" path="res://Objects/paddle.tscn" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://cugc7ovjgik2j" path="res://Scripts/GameController.cs" id="1_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://cg2m136to11rt" path="res://Objects/ball.tscn" id="2_bo1nx"]
+[ext_resource type="Texture2D" uid="uid://bqqel8fr3gees" path="res://Textures/48960977-820f6980-efb4-11e8-841b-8f50f9034b0e.jpg" id="3_8gbba"]
+[ext_resource type="PackedScene" uid="uid://ccyyc52vw26o" path="res://Objects/brick.tscn" id="5_kry3j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8gbba"]
+size = Vector2(26, 998)
 
 [node name="Main" type="Node"]
+script = ExtResource("1_jjvhh")
+brickObject = ExtResource("5_kry3j")
 
 [node name="Paddle" parent="." instance=ExtResource("1_jjgbg")]
 position = Vector2(960, 1050)
 
 [node name="Ball" parent="." instance=ExtResource("2_bo1nx")]
 position = Vector2(960, 880)
+
+[node name="Wall" type="StaticBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall"]
+position = Vector2(13, 499)
+scale = Vector2(0.1, 3.9)
+texture = ExtResource("3_8gbba")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+position = Vector2(13, 499)
+shape = SubResource("RectangleShape2D_8gbba")
+
+[node name="Wall2" type="StaticBody2D" parent="."]
+position = Vector2(1894, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall2"]
+position = Vector2(13, 499)
+scale = Vector2(0.1, 3.9)
+texture = ExtResource("3_8gbba")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
+position = Vector2(13, 499)
+shape = SubResource("RectangleShape2D_8gbba")
+
+[node name="Ceiling" type="StaticBody2D" parent="."]
+position = Vector2(1894, -7.27596e-12)
+rotation = 1.5708
+scale = Vector2(1.001, 1.872)
+
+[node name="Sprite2D" type="Sprite2D" parent="Ceiling"]
+position = Vector2(13, 499)
+scale = Vector2(0.1, 3.9)
+texture = ExtResource("3_8gbba")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ceiling"]
+position = Vector2(13, 499)
+shape = SubResource("RectangleShape2D_8gbba")

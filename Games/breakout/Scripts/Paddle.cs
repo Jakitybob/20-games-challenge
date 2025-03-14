@@ -11,8 +11,7 @@ public partial class Paddle : StaticBody2D
 
         // Clamp paddle to bounds of screen with paddle and wall size in mind
         float width = GetNode<CollisionShape2D>("CollisionShape2D").Shape.GetRect().Size.X;
-        float wallWidth = 0; //GetTree().CurrentScene.GetNode<StaticBody2D>("Wall").GetNode<CollisionShape2D>("CollisionShape2D").Shape.GetRect().Size.X;
-        Vector2 clampedPosition = new Vector2(Mathf.Clamp(Position.X, 0 + width / 2 + wallWidth, GetViewportRect().Size.X - width/2 - wallWidth), Position.Y);
+        Vector2 clampedPosition = new Vector2(Mathf.Clamp(Position.X, 0 + width / 2, GetViewportRect().Size.X - width/2), Position.Y);
         Position = clampedPosition;
     }
 

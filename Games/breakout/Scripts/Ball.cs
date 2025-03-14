@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 
 public partial class Ball : RigidBody2D
 {
-    [Export] float speed = 200f;
+    [Export] float speed = 450f;
+    [Export] Vector2 startingPos = new Vector2(960, 880);
 
     private Vector2 direction;
 
@@ -17,12 +18,19 @@ public partial class Ball : RigidBody2D
         ContactMonitor = true;
 
         // Turn off the ball
-        Visible = false;
+        //Visible = false;
+
+        // TODO: Remove
+        direction = GenerateRandomDirection();
     }
 
     public override void _Process(double delta)
     {
-
+        // Reset the ball if it goes out of bounds
+        if (Position.Y > GetViewportRect().Size.Y)
+        {
+            _ = ResetBall(); // Syntax "discards" the async task so it doesn't give me that annoying warning :^)
+        }
     }
 
     public override void _PhysicsProcess(double delta)
@@ -37,8 +45,14 @@ public partial class Ball : RigidBody2D
 
             // Bounce the ball
             Vector2 reflect = collision.GetRemainder().Reflect(collision.GetNormal()); // Get the immediate reflection of the ball from the surface
-            direction = direction.Bounce(collision.GetNormal()) * (float)delta; // Get the new direction based on the bounce
+            direction = direction.Bounce(collision.GetNormal()); // Get the new direction based on the bounce
             MoveAndCollide(reflect); // Move the ball once in the direction of the reflection
+
+            // Check if a brick was hit and delete it if so
+            if (collision.GetCollider().GetType() == typeof(Brick))
+            {
+                collision.GetCollider().Free();
+            }
         }
     }
 
@@ -50,25 +64,16 @@ public partial class Ball : RigidBody2D
         // Generate the angle from -45 to 45 degrees
         float angle = (float)GD.RandRange(-1f, 1f);
 
-        // Set the direction to the left if random number is even
-        if (GD.Randi() % 2 == 0)
-        {
-            newDirection = Vector2.Left;
-        }
-        // Else set the direction to right if the number is odd
-        else
-        {
-            newDirection = Vector2.Right;
-        }
+        newDirection = Vector2.Up;
+        newDirection.X = angle;
 
-        newDirection.Y = angle;
         return newDirection.Normalized();
     }
 
     public async Task ResetBall()
     {
         // Recenter the ball
-        Position = new Vector2(GetViewportRect().Size.X/2, GetViewportRect().Size.Y/2);
+        Position = startingPos;
         direction = Vector2.Zero; // Zero out the direction
 
         // Generate a new random velocity after a time and send the ball off
