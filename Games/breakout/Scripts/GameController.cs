@@ -19,8 +19,8 @@ public partial class GameController : Node
 
     [Export] PackedScene brickObject;
     [Export] int brickSeparation = 25;
+    private int totalBricks = 0;
     private int bricksRemaining = 0;
-    private int score = 0;
 
     public override void _EnterTree() // So that it registers prior to other objects existing
     {
@@ -46,13 +46,13 @@ public partial class GameController : Node
         userInterface = GetNode<Interface>("Interface");
 
         GenerateBricks(new Vector2(960, 150), 5, 23);
+        bricksRemaining = totalBricks;
     }
 
     public void RemoveBrick()
     {
         bricksRemaining--;
-        score++;
-        userInterface.UpdateScore(score);
+        userInterface.UpdateScore(totalBricks - bricksRemaining);
     }
 
     private void GenerateBricks(Vector2 rowCenterPos, int rows, int cols)
@@ -72,7 +72,7 @@ public partial class GameController : Node
                 float y = startingPos.Y + brickSeparation * row + (row * brick.GetNode<ColorRect>("ColorRect").Size.Y);
                 brick.Position = new Vector2(x, y);
                 AddChild(brick);
-                bricksRemaining++;
+                totalBricks++;
             }
         }
     }
