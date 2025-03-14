@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 
 public partial class Ball : RigidBody2D
 {
-    [Export] float speed = 450f;
+    [Export] float startingSpeed = 450f;
+    private float currentSpeed;
     [Export] Vector2 startingPos = new Vector2(960, 880);
 
     private Vector2 direction;
@@ -17,8 +18,9 @@ public partial class Ball : RigidBody2D
         // Activate monitoring
         ContactMonitor = true;
 
-        // Turn off the ball
+        // Set up basic parameters
         //Visible = false;
+        currentSpeed = startingSpeed;
 
         // TODO: Remove
         direction = GenerateRandomDirection();
@@ -36,7 +38,7 @@ public partial class Ball : RigidBody2D
     public override void _PhysicsProcess(double delta)
     {
         // Move the ball and check for collisions
-        KinematicCollision2D collision = MoveAndCollide(direction.Normalized() * speed * (float)delta);
+        KinematicCollision2D collision = MoveAndCollide(direction.Normalized() * currentSpeed * (float)delta);
 
         // If a collision occurred
         if (collision != null)
@@ -85,5 +87,10 @@ public partial class Ball : RigidBody2D
     {
         direction = Vector2.Zero;
         Visible = false;
+    }
+
+    public void UpdateSpeed(float modifier)
+    {
+        currentSpeed = startingSpeed + startingSpeed * modifier;
     }
 }

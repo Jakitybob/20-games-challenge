@@ -45,19 +45,27 @@ public partial class GameController : Node
         // Get the UI canvas layer
         userInterface = GetNode<Interface>("Interface");
 
+        // Generate the bricks
+        // TODO: Tie this into main menu with difficulty selection
         GenerateBricks(new Vector2(960, 150), 5, 23);
         bricksRemaining = totalBricks;
     }
 
     public void RemoveBrick()
     {
+        // Update the score
         bricksRemaining--;
         userInterface.UpdateScore(totalBricks - bricksRemaining);
+
+        // Update the paddle size and ball speed based on the percentage of balls destroyed
+        float modifier = 1 - ((float)bricksRemaining / (float)totalBricks);
+        GetNode<Paddle>("Paddle").UpdatePaddleSize(modifier);
+        GetNode<Ball>("Ball").UpdateSpeed(modifier);
     }
 
     private void GenerateBricks(Vector2 rowCenterPos, int rows, int cols)
     {
-        // Calculate the true starting X
+        // Calculate the true starting X based off the center of the row
         Vector2 startingPos = new Vector2(rowCenterPos.X - (cols / 2 * brickObject.Instantiate().GetNode<ColorRect>("ColorRect").Size.X) - (cols / 2 * brickSeparation), rowCenterPos.Y);
 
         // Generate each row
@@ -66,11 +74,16 @@ public partial class GameController : Node
             // Generate each column of each row
             for (int col = 0; col < cols; col++)
             {
+                // Create the brick instance
                 Brick brick = (Brick)brickObject.Instantiate();
                 brick.SetColor((BrickColors)row);
+
+                // Calculate the x and y of this brick
                 float x = startingPos.X + brickSeparation * col + (col * brick.GetNode<ColorRect>("ColorRect").Size.X);
                 float y = startingPos.Y + brickSeparation * row + (row * brick.GetNode<ColorRect>("ColorRect").Size.Y);
                 brick.Position = new Vector2(x, y);
+
+                // Add the brick to the scene
                 AddChild(brick);
                 totalBricks++;
             }
