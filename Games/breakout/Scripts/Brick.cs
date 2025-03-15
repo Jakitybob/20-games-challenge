@@ -3,6 +3,7 @@ using System;
 
 public partial class Brick : StaticBody2D
 {
+    // TODO: Set up monochrome pallet creation? Would be better than rainbow.
     public void SetColor(BrickColors color)
     {
         ColorRect sprite = GetNode<ColorRect>("ColorRect");

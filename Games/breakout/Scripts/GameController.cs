@@ -22,6 +22,8 @@ public partial class GameController : Node
     private int totalBricks = 0;
     private int bricksRemaining = 0;
 
+    private int lives = 3;
+
     public override void _EnterTree() // So that it registers prior to other objects existing
     {
         // Make sure this is the only GameController instance
@@ -61,6 +63,15 @@ public partial class GameController : Node
         float modifier = 1 - ((float)bricksRemaining / (float)totalBricks);
         GetNode<Paddle>("Paddle").UpdatePaddleSize(modifier);
         GetNode<Ball>("Ball").UpdateSpeed(modifier);
+    }
+
+    public void RemoveLife()
+    {
+        // Update remaining lives and UI
+        lives -= 1;
+        userInterface.UpdateLives(lives);
+
+        // TODO: Check for game over condition when out of lives
     }
 
     private void GenerateBricks(Vector2 rowCenterPos, int rows, int cols)

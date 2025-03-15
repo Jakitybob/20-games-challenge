@@ -65,3 +65,34 @@ offset_bottom = 58.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 42
 text = "Score: 0"
+
+[node name="LivesLabel" type="Label" parent="Interface"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -259.0
+offset_right = -101.0
+offset_bottom = 58.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 42
+text = "Lives: 3"
+horizontal_alignment = 2
+
+[node name="MessageLabel" type="Label" parent="Interface"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -236.5
+offset_top = -68.5
+offset_right = 236.5
+offset_bottom = 68.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 100
+text = "Breakout!"
+
+[node name="MessageTimer" type="Timer" parent="Interface"]
