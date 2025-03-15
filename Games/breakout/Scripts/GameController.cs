@@ -47,10 +47,40 @@ public partial class GameController : Node
         // Get the UI canvas layer
         userInterface = GetNode<Interface>("Interface");
 
+        // Enable the main menu
+        userInterface.EnableMainMenuInterface();
+
         // Generate the bricks
         // TODO: Tie this into main menu with difficulty selection
-        GenerateBricks(new Vector2(960, 150), 5, 23);
+        //GenerateBricks(new Vector2(960, 150), 5, 23);
+        //bricksRemaining = totalBricks;
+    }
+
+    // Called when the interface's countdown finishes and the game should start
+    private void OnInterfaceStartGame(int difficulty)
+    {
+        // Generate bricks based on difficulty
+        switch (difficulty)
+        {   
+            case 1:
+                GenerateBricks(new Vector2(960, 150), 3, 21);
+                break;
+            case 2:
+                GenerateBricks(new Vector2(960, 150), 4, 21);
+                break;
+            case 3:
+                GenerateBricks(new Vector2(960, 150), 6, 23);
+                break;
+            default:
+                GD.PrintErr("Difficulty was incorrectly set. Using difficulty 1.");
+                break;
+        }
+
+        // Set up remaining bricks
         bricksRemaining = totalBricks;
+
+        // Launch the ball
+        GetNode<Ball>("Ball").StartBall();
     }
 
     public void RemoveBrick()

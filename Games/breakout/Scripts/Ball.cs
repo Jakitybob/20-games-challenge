@@ -19,11 +19,9 @@ public partial class Ball : RigidBody2D
         ContactMonitor = true;
 
         // Set up basic parameters
-        //Visible = false;
-        currentSpeed = startingSpeed;
-
-        // TODO: Remove
-        direction = GenerateRandomDirection();
+        Visible = false;
+        currentSpeed = 0;
+        direction = Vector2.Zero;
     }
 
     public override void _Process(double delta)
@@ -56,6 +54,16 @@ public partial class Ball : RigidBody2D
                 collision.GetCollider().Free();
             }
         }
+    }
+
+    public void StartBall()
+    {
+        // Set up the speed and direction
+        direction = GenerateRandomDirection();
+        currentSpeed = startingSpeed;
+
+        // Re-enable ball visibility
+        Visible = true;
     }
 
     private Vector2 GenerateRandomDirection()

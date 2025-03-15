@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://crvefv12gq3lt"]
+[gd_scene load_steps=12 format=3 uid="uid://crvefv12gq3lt"]
 
 [ext_resource type="PackedScene" uid="uid://b7uwd54flp8iq" path="res://Objects/paddle.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://cugc7ovjgik2j" path="res://Scripts/GameController.cs" id="1_jjvhh"]
@@ -11,6 +11,44 @@ size = Vector2(1920, 60)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jjvhh"]
 size = Vector2(30, 950)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kry3j"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6bp64"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+draw_center = false
+border_width_left = 7
+border_width_top = 7
+border_width_right = 7
+border_width_bottom = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kry3j"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_21xkr"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+draw_center = false
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
 
 [node name="Main" type="Node"]
 script = ExtResource("1_jjvhh")
@@ -94,5 +132,75 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 100
 text = "Breakout!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="MessageTimer" type="Timer" parent="Interface"]
+wait_time = 4.0
+one_shot = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -40.0
+offset_right = 175.0
+offset_bottom = 219.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Button1" type="Button" parent="Interface/VBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 45
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kry3j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6bp64")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kry3j")
+theme_override_styles/normal = SubResource("StyleBoxFlat_21xkr")
+text = "Start Game"
+
+[node name="Button2" type="Button" parent="Interface/VBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 45
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kry3j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6bp64")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kry3j")
+theme_override_styles/normal = SubResource("StyleBoxFlat_21xkr")
+text = "Leaderboard"
+
+[node name="Button3" type="Button" parent="Interface/VBoxContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 45
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kry3j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6bp64")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kry3j")
+theme_override_styles/normal = SubResource("StyleBoxFlat_21xkr")
+text = "Quit Game"
+
+[node name="Button4" type="Button" parent="Interface/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 45
+theme_override_styles/focus = SubResource("StyleBoxEmpty_kry3j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6bp64")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kry3j")
+theme_override_styles/normal = SubResource("StyleBoxFlat_21xkr")
+text = "Go Back"
+
+[connection signal="StartGame" from="Interface" to="." method="OnInterfaceStartGame"]
+[connection signal="timeout" from="Interface/MessageTimer" to="Interface" method="OnMessageTimerTimeout"]
+[connection signal="pressed" from="Interface/VBoxContainer/Button1" to="Interface" method="OnButtonOnePressed"]
+[connection signal="pressed" from="Interface/VBoxContainer/Button2" to="Interface" method="OnButtonTwoPressed"]
+[connection signal="pressed" from="Interface/VBoxContainer/Button3" to="Interface" method="OnButtonThreePressed"]
+[connection signal="pressed" from="Interface/VBoxContainer/Button4" to="Interface" method="OnButtonFourPressed"]
