@@ -5,6 +5,8 @@ public partial class Paddle : StaticBody2D
 {
     [Export] float speed = 350f; // Arbitrary value idk man
     [Export] float startingWidth = 256f;
+    public Vector2 startingPosition { get; private set; }
+    public float minimumSize = 35f;
     private ColorRect sprite;
     private CollisionShape2D collisionShape;
 
@@ -13,6 +15,7 @@ public partial class Paddle : StaticBody2D
         // Get the sprite and collision shape
         sprite = GetNode<ColorRect>("ColorRect");
         collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
+        startingPosition = Position;
 
         // Set up the sprite and collision shape size
         UpdatePaddleSize(0);
@@ -49,7 +52,7 @@ public partial class Paddle : StaticBody2D
     {
         // Calculate the new width
         float width = startingWidth - startingWidth * modifier;
-        Mathf.Clamp(width, 35f, startingWidth); // Make sure the minimum size is 35px
+        Mathf.Clamp(width, minimumSize, startingWidth); // Make sure the minimum size is 35px
 
         // Update the paddle parameters
         sprite.Size = new Vector2(width, sprite.Size.Y);

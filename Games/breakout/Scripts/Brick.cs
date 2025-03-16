@@ -36,6 +36,8 @@ public partial class Brick : StaticBody2D
 
     public override void _ExitTree()
     {
-        GameController.instance.RemoveBrick();
+        // Perform the brick scoring logic only if the game is not ending
+        if (!GameController.instance.isGameOver)
+            GameController.instance.RemoveBrick();
     }
 }

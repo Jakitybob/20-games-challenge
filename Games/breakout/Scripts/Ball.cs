@@ -86,6 +86,12 @@ public partial class Ball : RigidBody2D
         // NOTE: This should likely be a signal that is called with the game controller listening BUT I am lazy and this is a small project :^)
         GameController.instance.RemoveLife();
 
+        // Return without respawning the ball if the game is over
+        if (GameController.instance.isGameOver)
+        {
+            return;
+        }
+
         // Recenter the ball
         Position = startingPos;
         direction = Vector2.Zero; // Zero out the direction
@@ -98,6 +104,7 @@ public partial class Ball : RigidBody2D
     public void FreezeBall()
     {
         direction = Vector2.Zero;
+        Position = startingPos;
         Visible = false;
     }
 

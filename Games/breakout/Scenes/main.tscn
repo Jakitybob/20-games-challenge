@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://b7uwd54flp8iq" path="res://Objects/paddle.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://cugc7ovjgik2j" path="res://Scripts/GameController.cs" id="1_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://cg2m136to11rt" path="res://Objects/ball.tscn" id="2_bo1nx"]
-[ext_resource type="Script" uid="uid://dw0duugntq3yi" path="res://Scenes/Interface.cs" id="5_21xkr"]
+[ext_resource type="Script" uid="uid://dw0duugntq3yi" path="res://Scripts/Interface.cs" id="5_21xkr"]
 [ext_resource type="PackedScene" uid="uid://ccyyc52vw26o" path="res://Objects/brick.tscn" id="5_kry3j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8gbba"]

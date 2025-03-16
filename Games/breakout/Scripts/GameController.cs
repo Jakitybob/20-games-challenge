@@ -23,6 +23,7 @@ public partial class GameController : Node
     private int bricksRemaining = 0;
 
     private int lives = 3;
+    public bool isGameOver = false;
 
     public override void _EnterTree() // So that it registers prior to other objects existing
     {
@@ -33,13 +34,13 @@ public partial class GameController : Node
             QueueFree();
         }
 
+        instance = this;
+
         // Make sure a brick object has been added
         if (brickObject == null)
         {
             GD.PushError("No Brick Object was set!");
         }
-
-        instance = this;
     }
 
     public override void _Ready()
@@ -49,30 +50,40 @@ public partial class GameController : Node
 
         // Enable the main menu
         userInterface.EnableMainMenuInterface();
-
-        // Generate the bricks
-        // TODO: Tie this into main menu with difficulty selection
-        //GenerateBricks(new Vector2(960, 150), 5, 23);
-        //bricksRemaining = totalBricks;
     }
 
     // Called when the interface's countdown finishes and the game should start
     private void OnInterfaceStartGame(int difficulty)
     {
+        // Make sure the game is not set to over
+        isGameOver = false;
+
+        // Reset score and lives
+        userInterface.UpdateScore(0);
+        lives = 3;
+        userInterface.UpdateLives(lives);
+
+        // Get the paddle so its minimum size can be updated based on difficulty and recenter it
+        Paddle paddle = GetNode<Paddle>("Paddle");
+        paddle.Position = paddle.startingPosition;
+
         // Generate bricks based on difficulty
         switch (difficulty)
         {   
             case 1:
                 GenerateBricks(new Vector2(960, 150), 3, 21);
+                paddle.minimumSize = 100f;
                 break;
             case 2:
                 GenerateBricks(new Vector2(960, 150), 4, 21);
+                paddle.minimumSize = 75f;
                 break;
             case 3:
                 GenerateBricks(new Vector2(960, 150), 6, 23);
+                paddle.minimumSize = 35f;
                 break;
             default:
-                GD.PrintErr("Difficulty was incorrectly set. Using difficulty 1.");
+                GD.PrintErr("Difficulty was incorrectly set. Fix this please.");
                 break;
         }
 
@@ -102,6 +113,12 @@ public partial class GameController : Node
         userInterface.UpdateLives(lives);
 
         // TODO: Check for game over condition when out of lives
+        if (lives <= 0)
+        {
+            isGameOver = true;
+            GameOver();
+        }
+
     }
 
     private void GenerateBricks(Vector2 rowCenterPos, int rows, int cols)
@@ -129,5 +146,32 @@ public partial class GameController : Node
                 totalBricks++;
             }
         }
+    }
+
+    private void EndGame()
+    {
+        // TODO: Save out and serialize the scores here
+
+        // Iterate through all children and delete any bricks found
+        // This could be way more efficient but given there aren't that many bricks
+        // its not worth the effort to overengineer.
+        Godot.Collections.Array<Node> bricks = GetChildren();
+        foreach (Node child in bricks)
+        {
+            if (child.GetType() == typeof(Brick))
+            {
+                child.QueueFree();
+            }
+        }
+
+        // Remove the ball
+        GetNode<Ball>("Ball").FreezeBall();
+    }
+
+    // To be used when the player runs out of lives
+    private void GameOver()
+    {
+        EndGame();
+        userInterface.GameOverInterface();
     }
 }

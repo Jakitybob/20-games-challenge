@@ -104,6 +104,18 @@ public partial class Interface : CanvasLayer
         messageLabel.Position = new Vector2(messageLabel.Position.X, messageLabel.Position.Y + 250f);
     }
 
+    public void GameOverInterface()
+    {
+        // Make sure main menu parameters are reset
+        inDifficultySelect = false;
+        SetButtonText();
+
+        // Set game over message and start timer
+        messageLabel.Text = "Game Over!";
+        messageLabel.Visible = true;
+        messageTimer.Start(); // Start the message timer without enabling the countdown bool
+    }
+
     private void OnButtonOnePressed()
     {
         // Enter difficulty select if not in difficulty select mode
@@ -159,11 +171,20 @@ public partial class Interface : CanvasLayer
 
     private void OnMessageTimerTimeout()
     {
-        // Toggle the timer and message label
-        isCountingDown = false;
-        messageLabel.Visible = false;
+        // Run start game logic if not game over
+        if (!GameController.instance.isGameOver)
+        {
+            // Toggle the timer and message label
+            isCountingDown = false;
+            messageLabel.Visible = false;
 
-        // TODO: Start the game here
-        EmitSignal(SignalName.StartGame, difficulty);
+            // TODO: Start the game here
+            EmitSignal(SignalName.StartGame, difficulty);
+        }
+        // Else run game over logic
+        else
+        {
+            EnableMainMenuInterface();
+        }
     }
 }
