@@ -52,7 +52,8 @@ public partial class Paddle : StaticBody2D
     {
         // Calculate the new width
         float width = startingWidth - startingWidth * modifier;
-        Mathf.Clamp(width, minimumSize, startingWidth); // Make sure the minimum size is 35px
+        if (width < minimumSize)
+            width = minimumSize;
 
         // Update the paddle parameters
         sprite.Size = new Vector2(width, sprite.Size.Y);
