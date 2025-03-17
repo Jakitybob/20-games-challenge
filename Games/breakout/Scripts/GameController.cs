@@ -63,7 +63,7 @@ public partial class GameController : Node
         switch (difficulty)
         {   
             case 1:
-                GenerateBricks(new Vector2(960, 150), 3, 21);
+                GenerateBricks(new Vector2(960, 150), 1, 1);
                 paddle.minimumSize = 100f;
                 break;
             case 2:
@@ -92,6 +92,13 @@ public partial class GameController : Node
         bricksRemaining--;
         userInterface.UpdateScore(totalBricks - bricksRemaining);
 
+        // Check if the last brick was destroyed
+        if (bricksRemaining == 0)
+        {
+            EndGame();
+            userInterface.GameWonInterface();
+        }
+
         // Update the paddle size and ball speed based on the percentage of balls destroyed
         float modifier = 1 - ((float)bricksRemaining / (float)totalBricks);
         GetNode<Paddle>("Paddle").UpdatePaddleSize(modifier);
@@ -107,9 +114,9 @@ public partial class GameController : Node
         // Check for game over condition
         if (lives <= 0)
         {
-            GameOver();
+            EndGame();
+            userInterface.GameOverInterface();
         }
-
     }
 
     private void GenerateBricks(Vector2 rowCenterPos, int rows, int cols)
@@ -165,13 +172,6 @@ public partial class GameController : Node
 
         // Remove the ball
         GetNode<Ball>("Ball").FreezeBall();
-    }
-
-    // To be used when the player runs out of lives
-    private void GameOver()
-    {
-        EndGame();
-        userInterface.GameOverInterface();
     }
 
     // To be used when the player presses escape

@@ -4,11 +4,13 @@ using System;
 public partial class Interface : CanvasLayer
 {
     private Label scoreLabel, livesLabel, messageLabel;
+    private Vector2 messageTitlePos, messageTimerPos;
     private Timer messageTimer;
     private VBoxContainer buttonContainer;
     private Button buttonOne, buttonTwo, buttonThree, buttonFour; // General buttons because they are reused for both { start, scores, quit } and difficulty selection
 
     bool inDifficultySelect = false; // Used to decide how to display buttons on main menu
+    bool inScoreSave = false;
     bool isCountingDown = false;
     int difficulty = 1; // The difficulty to pass out, set by the buttons
 
@@ -26,6 +28,10 @@ public partial class Interface : CanvasLayer
         buttonTwo = buttonContainer.GetNode<Button>("Button2");
         buttonThree = buttonContainer.GetNode<Button>("Button3");
         buttonFour = buttonContainer.GetNode<Button>("Button4");
+
+        // Set up positions for the message label
+        messageTimerPos = messageLabel.Position;
+        messageTitlePos = new Vector2(messageLabel.Position.X, messageLabel.Position.Y - 250f);
     }
 
     public override void _Process(double delta)
@@ -63,7 +69,7 @@ public partial class Interface : CanvasLayer
         // Set the message to Breakout title
         messageLabel.Visible = true;
         messageLabel.Text = "Breakout!";
-        messageLabel.Position = new Vector2(messageLabel.Position.X, messageLabel.Position.Y - 250f); // Increase the offset by 250px up for the title card
+        messageLabel.Position = messageTitlePos;
 
         // Enable game buttons
         buttonContainer.Visible = true;
@@ -75,6 +81,21 @@ public partial class Interface : CanvasLayer
 
     private void SetButtonText()
     {
+        // Hide button 3 and 4
+        if (inScoreSave)
+        {
+            buttonOne.Text = "Save Score";
+            buttonTwo.Text = "No Thanks";
+            buttonThree.Visible = false;
+            buttonFour.Visible = false;
+            return;
+        }
+        // Else make sure button 3 and 4 are visible
+        else
+        {
+            buttonThree.Visible = true;
+            buttonFour.Visible = true;
+        }
         // Set up standard button text
         if (!inDifficultySelect)
         {
@@ -108,27 +129,52 @@ public partial class Interface : CanvasLayer
         // Enable message timer
         messageTimer.Start();
         isCountingDown = true;
-        messageLabel.Position = new Vector2(messageLabel.Position.X, messageLabel.Position.Y + 250f);
+        messageLabel.Position = messageTimerPos;
     }
 
     public void GameOverInterface()
     {
         // Set game over message and start timer
+        messageLabel.Position = messageTitlePos;
         messageLabel.Text = "Game Over!";
         messageLabel.Visible = true;
-        messageTimer.Start(); // Start the message timer without enabling the countdown bool
+
+        // Enable the buttons and enter score saving mode
+        inScoreSave = true;
+        SetButtonText();
+        buttonContainer.Visible = true;
+
+        //messageTimer.Start(); // Start the message timer without enabling the countdown bool
+    }
+
+    public void GameWonInterface()
+    {
+        // Set the victory message
+        messageLabel.Position = messageTitlePos;
+        messageLabel.Text = "You won!";
+        messageLabel.Visible = true;
+
+        // Enable the buttons and enter score saving mode
+        inScoreSave = true;
+        SetButtonText();
+        buttonContainer.Visible = true;
     }
 
     private void OnButtonOnePressed()
     {
+        // Enter score saving
+        if (inScoreSave)
+        {
+            // TODO: Implement
+        }
         // Enter difficulty select if not in difficulty select mode
-        if (!inDifficultySelect)
+        else if (!inDifficultySelect)
         {
             inDifficultySelect = true;
             SetButtonText();
         }
         // Otherwise select difficulty one and start the game
-        else 
+        else
         {
             difficulty = 1;
             EnableGameplayInterface();
@@ -137,10 +183,16 @@ public partial class Interface : CanvasLayer
 
     private void OnButtonTwoPressed()
     {
-        // Show local leaderboard if not in difficulty select mode
-        if (!inDifficultySelect)
+        // Return to main menu if in score save
+        if (inScoreSave)
         {
-
+            inScoreSave = false;
+            EnableMainMenuInterface();
+        }
+        // Show local leaderboard if not in difficulty select mode
+        else if (!inDifficultySelect)
+        {
+            // TODO: IMPLEMENT
         }
         // Otherwise select difficulty two and start the game
         else 
@@ -167,7 +219,7 @@ public partial class Interface : CanvasLayer
 
     private void OnButtonFourPressed()
     {
-        // Disble difficulty select and re-set the button text
+        // Disable difficulty select and re-set the button text
         inDifficultySelect = false;
         SetButtonText();
     }
