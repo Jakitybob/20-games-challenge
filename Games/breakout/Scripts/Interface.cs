@@ -56,6 +56,10 @@ public partial class Interface : CanvasLayer
 
     public void EnableMainMenuInterface()
     {
+        // Make sure main menu parameters are reset
+        inDifficultySelect = false;
+        SetButtonText();
+
         // Set the message to Breakout title
         messageLabel.Visible = true;
         messageLabel.Text = "Breakout!";
@@ -95,6 +99,9 @@ public partial class Interface : CanvasLayer
         scoreLabel.Visible = true;
         livesLabel.Visible = true;
 
+        // Make sure game is no longer set to over
+        GameController.instance.isGameOver = false;
+
         // Hide buttons
         buttonContainer.Visible = false;
 
@@ -106,10 +113,6 @@ public partial class Interface : CanvasLayer
 
     public void GameOverInterface()
     {
-        // Make sure main menu parameters are reset
-        inDifficultySelect = false;
-        SetButtonText();
-
         // Set game over message and start timer
         messageLabel.Text = "Game Over!";
         messageLabel.Visible = true;

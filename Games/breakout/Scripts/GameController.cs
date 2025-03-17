@@ -23,7 +23,7 @@ public partial class GameController : Node
     private int bricksRemaining = 0;
 
     private int lives = 3;
-    public bool isGameOver = false;
+    public bool isGameOver = true;
 
     public override void _EnterTree() // So that it registers prior to other objects existing
     {
@@ -55,14 +55,6 @@ public partial class GameController : Node
     // Called when the interface's countdown finishes and the game should start
     private void OnInterfaceStartGame(int difficulty)
     {
-        // Make sure the game is not set to over
-        isGameOver = false;
-
-        // Reset score and lives
-        userInterface.UpdateScore(0);
-        lives = 3;
-        userInterface.UpdateLives(lives);
-
         // Get the paddle so its minimum size can be updated based on difficulty and recenter it
         Paddle paddle = GetNode<Paddle>("Paddle");
         paddle.Position = paddle.startingPosition;
@@ -112,10 +104,9 @@ public partial class GameController : Node
         lives -= 1;
         userInterface.UpdateLives(lives);
 
-        // TODO: Check for game over condition when out of lives
+        // Check for game over condition
         if (lives <= 0)
         {
-            isGameOver = true;
             GameOver();
         }
 
@@ -152,6 +143,11 @@ public partial class GameController : Node
     {
         // TODO: Save out and serialize the scores here
 
+        // Reset score and lives
+        userInterface.UpdateScore(0);
+        lives = 3;
+        userInterface.UpdateLives(lives);
+
         // Iterate through all children and delete any bricks found
         // This could be way more efficient but given there aren't that many bricks
         // its not worth the effort to overengineer.
@@ -164,6 +160,9 @@ public partial class GameController : Node
             }
         }
 
+        // Set the game to over
+        isGameOver = true;
+
         // Remove the ball
         GetNode<Ball>("Ball").FreezeBall();
     }
@@ -173,5 +172,12 @@ public partial class GameController : Node
     {
         EndGame();
         userInterface.GameOverInterface();
+    }
+
+    // To be used when the player presses escape
+    public void QuitLevel()
+    {
+        EndGame();
+        userInterface.EnableMainMenuInterface();
     }
 }

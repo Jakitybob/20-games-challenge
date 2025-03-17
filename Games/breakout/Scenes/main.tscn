@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://crvefv12gq3lt"]
+[gd_scene load_steps=13 format=3 uid="uid://crvefv12gq3lt"]
 
 [ext_resource type="PackedScene" uid="uid://b7uwd54flp8iq" path="res://Objects/paddle.tscn" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://cugc7ovjgik2j" path="res://Scripts/GameController.cs" id="1_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://cg2m136to11rt" path="res://Objects/ball.tscn" id="2_bo1nx"]
 [ext_resource type="Script" uid="uid://dw0duugntq3yi" path="res://Scripts/Interface.cs" id="5_21xkr"]
 [ext_resource type="PackedScene" uid="uid://ccyyc52vw26o" path="res://Objects/brick.tscn" id="5_kry3j"]
+[ext_resource type="FontFile" uid="uid://qeeg0ukvmsu" path="res://Fonts/Silkscreen-Regular.ttf" id="6_21xkr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8gbba"]
 size = Vector2(1920, 60)
@@ -101,6 +102,7 @@ offset_left = 101.0
 offset_right = 259.0
 offset_bottom = 58.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_21xkr")
 theme_override_font_sizes/font_size = 42
 text = "Score: 0"
 
@@ -113,6 +115,7 @@ offset_right = -101.0
 offset_bottom = 58.0
 grow_horizontal = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_21xkr")
 theme_override_font_sizes/font_size = 42
 text = "Lives: 3"
 horizontal_alignment = 2
@@ -130,6 +133,7 @@ offset_right = 236.5
 offset_bottom = 68.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("6_21xkr")
 theme_override_font_sizes/font_size = 100
 text = "Breakout!"
 horizontal_alignment = 1
@@ -157,6 +161,7 @@ theme_override_constants/separation = 20
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_21xkr")
 theme_override_font_sizes/font_size = 45
 theme_override_styles/focus = SubResource("StyleBoxEmpty_kry3j")
 theme_override_styles/hover = SubResource("StyleBoxFlat_6bp64")
@@ -168,6 +173,7 @@ text = "Start Game"
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_21xkr")
 theme_override_font_sizes/font_size = 45
 theme_override_styles/focus = SubResource("StyleBoxEmpty_kry3j")
 theme_override_styles/hover = SubResource("StyleBoxFlat_6bp64")
@@ -179,6 +185,7 @@ text = "Leaderboard"
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_21xkr")
 theme_override_font_sizes/font_size = 45
 theme_override_styles/focus = SubResource("StyleBoxEmpty_kry3j")
 theme_override_styles/hover = SubResource("StyleBoxFlat_6bp64")
@@ -191,6 +198,7 @@ visible = false
 custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("6_21xkr")
 theme_override_font_sizes/font_size = 45
 theme_override_styles/focus = SubResource("StyleBoxEmpty_kry3j")
 theme_override_styles/hover = SubResource("StyleBoxFlat_6bp64")

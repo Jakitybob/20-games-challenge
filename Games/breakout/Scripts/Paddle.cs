@@ -33,9 +33,9 @@ public partial class Paddle : StaticBody2D
 
     private void HandleInput(float delta)
     {
-        if (Input.IsActionPressed("escape")) // Should be done in an input manager but I'm doing it here instead :^)
+        if (Input.IsActionPressed("escape") && !GameController.instance.isGameOver) // Should be done in an input manager but I'm doing it here instead :^)
         {
-            //GameController.instance.EndGame();
+            GameController.instance.QuitLevel();
         }
 
         if (Input.IsActionPressed("left"))
@@ -52,8 +52,7 @@ public partial class Paddle : StaticBody2D
     {
         // Calculate the new width
         float width = startingWidth - startingWidth * modifier;
-        if (width < minimumSize)
-            width = minimumSize;
+        width = Mathf.Clamp(width, minimumSize, startingWidth); // Make sure the minimum size is 35px
 
         // Update the paddle parameters
         sprite.Size = new Vector2(width, sprite.Size.Y);
